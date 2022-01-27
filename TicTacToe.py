@@ -59,32 +59,74 @@ def clearGrid():
         for col in range(0,3):
             grid[row][col] = ' '
     
-    
-#p1first = createOrder()
+def checkWinner():
+    for row in grid:
+        if "".join(row) == "XXX":
+            return 1
+        elif "".join(row) == 'OOO':
+            return 2
+    for i in range(0,3):
+        if grid[0][i] == grid[1][i] == grid[2][i]:
+            if grid[0][i] == 'X':
+                return 1
+            elif grid[0][i] == 'O':
+                return 2
+    if grid[0][0] == grid[1][1] == grid[2][2]:
+        if grid[0][0] == 'X':
+            return 1
+        elif grid[0][0] == 'O':
+            return 2
+    if grid[2][0] == grid[1][1] == grid[0][2]:
+        if grid[2][0] == 'X':
+            return 1
+        elif grid[2][0] == 'O':
+            return 2
+    return 0
+
+
+turn = createOrder() #true means player 1 turn, and vice versa
 print('Here is the grid and the indexes associated with each box:')
 grid = [['1','2','3'],['4','5','6'],['7','8','9']]
 printGrid()
 clearGrid()
+
+winner = 0
+while(winner == 0):
+    printGrid()
+    hold = ''
+    ind = 0
+    if turn:
+        valid = False
+        print('Player 1, it is your turn. Please input an index.')
+        while not valid:
+            hold = 'X'
+            ind = int(input('Index: '))
+            if(ind < 1 or ind > 9 or grid[(ind-1)//3][(ind-1)%3] != ' '):
+                valid = False
+                print('Please enter a valid index')
+            else:
+                valid = True
+    else:
+        valid = False
+        print('Player 2, it is your turn. Please input an index.')
+        while not valid:
+            hold = 'O'
+            ind = int(input('Index: '))
+            if(ind < 1 or ind > 9 or grid[(ind-1)//3][(ind-1)%3] != ' '):
+                valid = False
+                print('Please enter a valid index')
+            else:
+                valid = True
+    
+    row = (ind-1)//3
+    col = (ind-1)%3
+    grid[row][col] = hold
+    turn = not turn
+    winner = checkWinner()
 printGrid()
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+if winner == 1:
+    print('Player 1 wins! Good game!')
+else:
+    print('Player 2 wins! Good game!')

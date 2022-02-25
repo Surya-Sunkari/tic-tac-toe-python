@@ -1,12 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Jan 25 13:35:54 2022
-
-@author: 100031985
-"""
-
-
-
 #tictactoe, my solution
 
 #figure out order
@@ -14,10 +5,11 @@ Created on Tue Jan 25 13:35:54 2022
 #ask for input (check if valid)
 #clear grid, print new grid, check for winner, switch turns
 
+from random import randint #used in createOrder() function to randomize if player1 or player2 goes first
 
 
-from random import randint
-
+#determines if player1 or player2 goes first by "flipping a coin."
+#returns True if player1 goes first and False if player2 goes first.
 def createOrder():
     print('You are player 1. I will flip a coin to determine who goes first.')
     s = ""
@@ -45,6 +37,7 @@ def createOrder():
         print('\nPlayer 2 goes first.')
         return False
 
+#prints the elements in the tictactoe board in the proper tictactoe formatting
 def printGrid():
     print()
     for i,row in enumerate(grid):
@@ -53,12 +46,15 @@ def printGrid():
         if(0<=i<=1):
             print("-----")
     print()
-    
+
+#clears the elements in the tictactoe board
 def clearGrid():
     for row in range(0,3):
         for col in range(0,3):
             grid[row][col] = ' '
-    
+
+#checks to see if either player1 or player2 has won the game
+#returns '0' if neither player has won yet, '1' if player1 wins, '2' if player2 wins, and '3' if there is a tie
 def checkWinner():
     for row in grid:
         if "".join(row) == "XXX":
@@ -81,10 +77,13 @@ def checkWinner():
             return 1
         elif grid[2][0] == 'O':
             return 2
-    return 0
+    for row in grid:
+        for i in row:
+            if grid[row][i] == ' ':
+                return 0
+    return 3
 
-
-turn = createOrder() #true means player 1 turn, and vice versa
+turn = createOrder() #true means player 1 turn, and false means player 2 turn
 print('Here is the grid and the indexes associated with each box:')
 grid = [['1','2','3'],['4','5','6'],['7','8','9']]
 printGrid()

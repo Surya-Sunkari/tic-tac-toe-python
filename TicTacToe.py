@@ -127,7 +127,7 @@ printGrid()
 
 if winner == 1:
     print('Player 1 wins! Good game!')
-elif winner == 2
+elif winner == 2:
     print('Player 2 wins! Good game!')
 else:
     print('Tie! Good game!')

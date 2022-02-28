@@ -79,7 +79,7 @@ def checkWinner():
             return 2
     for row in grid:
         for i in row:
-            if grid[row][i] == ' ':
+            if i == ' ':
                 return 0
     return 3
 
